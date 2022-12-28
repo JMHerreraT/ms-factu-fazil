@@ -1,0 +1,4 @@
+REGION: ${file(./serverless.yml):provider.region}
+CLOUD_CONNECTION_HOST: "${file(./serverless.yml):custom.cloudConnectionHost}"
+CLOUD_CONNECTION_USER: "${file(./serverless.yml):custom.cloudConnectionUser}"
+CLOUD_CONNECTION_PASSWORD: "${file(./serverless.yml):custom.cloudConnectionPassword}"

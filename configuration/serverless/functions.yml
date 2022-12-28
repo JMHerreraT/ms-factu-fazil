@@ -1,0 +1,19 @@
+obtenerNombres:
+  handler: src/controller/APIController.obtenerNombres
+  name: ${opt:stage,'PROD'}LAMBDAFFAZIL01
+  description: OBTENER NOMBRES    
+  events:
+    - http:
+        path: /challenge/personas/obtener/{idPersona}
+        method: get
+        cors: true
+        
+registrarNombres:
+  handler: src/controller/APIController.registrarNombres
+  name: ${opt:stage,'PROD'}LAMBDAFFAZIL02
+  description: REGISTRAR NOMBRES
+  events:
+    - http:
+        path: /challenge/personas/registrar
+        method: post
+        cors: true 

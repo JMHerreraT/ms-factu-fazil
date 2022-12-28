@@ -1,0 +1,49 @@
+service: ${opt:stage,'PROD'}ACFFACTUFAZIL0001
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage,'PROD'}
+  region: ${self:custom.region.${self:provider.stage}}
+
+
+environment: ${file(configuration/serverless/variables.yml)}
+
+# Custom Variables
+custom:  
+  stages:
+    DESA: desa
+    TEST: test
+    DESAGLB: desa
+    TESTGLB: test
+    PROD: prod
+  region:
+    DESA: us-east-2
+    TEST: us-east-2
+    DESAGLB: us-east-2
+    TESTGLB: us-east-2
+    PROD: us-east-1
+    us-east-1: UEAST1
+  cloudConnectionHost: ${ssm:/factu-fazil/${self:custom.stages.${self:provider.stage}}/database/cloud-connection-host}
+  cloudConnectionUser: ${ssm:/factu-fazil/${self:custom.stages.${self:provider.stage}}/database/cloud-connection-user}
+  cloudConnectionPassword: ${ssm:/factu-fazil/${self:custom.stages.${self:provider.stage}}/database/cloud-connection-password}
+
+plugins:
+ - serverless-offline
+
+# you can add packaging information here
+#package:
+#  patterns:
+#    - '!exclude-me.js'
+#    - '!exclude-me-dir/**'
+#    - include-me.js
+#    - include-me-dir/**
+
+functions: ${file(configuration/serverless/functions.yml)}
